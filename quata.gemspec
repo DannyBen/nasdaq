@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.description = "Easy to use API for Quandl data service with a command line interface"
   s.authors     = ["Danny Ben Shitrit"]
   s.email       = 'db@dannyben.com'
-  s.files       = Dir['README.md', 'lib/**/*.rb']
+  s.files       = Dir['README.md', 'lib/**/*.*']
   s.executables = ["quata"]
   s.homepage    = 'https://github.com/DannyBen/quata'
   s.license     = 'MIT'
