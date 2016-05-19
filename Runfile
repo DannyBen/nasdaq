@@ -1,5 +1,5 @@
 require "runfile-tasks"
-require "quata"
+require_relative 'lib/quata'
 
 name    "Quata Developer Toolbelt"
 summary "Runfile tasks for building the Quata gem"
