@@ -27,7 +27,7 @@ Features
 Example
 --------------------------------------------------
 
-First, require and initialize Quata with your API key
+First, require and initialize with your API key
 
 ```ruby
 require 'quata'
