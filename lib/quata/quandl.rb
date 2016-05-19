@@ -1,6 +1,6 @@
 require 'json'
 
-# Provides access to all thq Quandl API endpoints
+# Provides access to all the Quandl API endpoints
 class Quandl < Quata::WebAPI
   attr_reader :api_key
 
