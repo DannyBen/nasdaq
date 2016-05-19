@@ -7,7 +7,7 @@ rvm:
 notifications:
   email: false
 
-script: bundle exec cucumber
+script: bundle exec rspec
 
 # notifications:
 #   email:
