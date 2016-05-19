@@ -1,0 +1,52 @@
+Quata
+
+Usage:
+  quata get PATH [PARAMS...]
+  quata pretty PATH [PARAMS...]
+  quata see PATH [PARAMS...]
+  quata url PATH [PARAMS...]
+  quata save FILE PATH [PARAMS...]
+  quata (-h|--help|--version)
+
+Commands:
+  get
+    Downloads data and prints it to screen as it. 
+  
+  pretty
+    Downloads data and prints it as a prettified JSON output.
+
+  see
+    Downloads data and prints it with a colored output.
+
+  url
+    Shows the URL constructed from the request.
+
+  save
+    Downloads data and saves it to a file.
+
+Parameters:
+  PATH:
+    This is the Quandl API path, for example: datasets/WIKI/AAPL.
+    Format is defaulted to CSV in most cases, but you can override it like
+    you normally would by appending it at the end, like 
+    datasets/WIKI/AAPL.json
+
+  PARAMS:
+    An optional list of query string parameters, separated by a space, to 
+    send with the request. Each parameter should be in the format of 
+    key:value, for example: page:2 per_page:10
+
+  FILE:
+    Path to the output file.
+
+Examples:
+  quata get databases per_page:2
+  quata get datasets/WIKI/AAPL
+  quata get datasets/WIKI/AAPL rows:5
+  quata get datasets source_code:WIKI query:* 
+  quata get datasets query:oil
+  quata get datasets.json "query:qqq index"
+  quata see datasets/WIKI/AAPL rows:5
+  quata url datasets/WIKI/AAPL rows:5
+  quata save output.csv datasets/WIKI/AAPL rows:5
+  quata pretty datasets.json query:qqq
