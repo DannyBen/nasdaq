@@ -94,7 +94,11 @@ module Quata
     private
 
     def http_get(url)
-      open(url).read
+      begin
+        open(url).read
+      rescue OpenURI::HTTPError => e
+        e.message
+      end
     end
   end
 

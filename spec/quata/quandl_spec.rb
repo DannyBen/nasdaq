@@ -1,9 +1,6 @@
 require 'spec_helper'
 
 describe Quandl do
-
-  # let(:quandl) { Quandl.new ENV['QUANDL_KEY'] }
-
   describe '#new' do
     it "sets default format to json" do
       quandl = Quandl.new

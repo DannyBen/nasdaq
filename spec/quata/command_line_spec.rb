@@ -42,7 +42,7 @@ describe CommandLine do
     context "with see command" do
       let(:command) { %w[see datasets/WIKI/AAPL rows:5] }
 
-      it "prints awesome-prints output" do
+      it "awesome-prints output" do
         expected = /:dataset_code.*=>.*"AAPL"/
         expect {cli.execute command}.to output(expected).to_stdout
       end
@@ -63,6 +63,15 @@ describe CommandLine do
         File.unlink 'tmp.zip'
       end
     end
+
+    context "with an invalid path" do
+      let(:command) { %W[get not_here] }
+      
+      it "fails gracefully" do
+        expect {cli.execute command}.to output(/400 Bad Request/).to_stdout
+      end
+    end
+
 
   end
 end

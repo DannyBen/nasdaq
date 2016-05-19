@@ -38,6 +38,11 @@ describe "quandl queries" do
       response = quandl.get "datasets/WIKI/AAPL.csv", rows: 3
       expect(response).to match /Date,Open,High,Low,Close,Volume/
     end
+
+    it "fails gracefully" do
+      response = quandl.get "no_can_do"
+      expect(response).to eq '400 Bad Request'
+    end
   end
 
   describe '#get!' do
