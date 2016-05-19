@@ -15,7 +15,7 @@ class Quandl < Quata::WebAPI
     after_request do |response| 
       begin
         JSON.parse response, symbolize_names: true
-      rescue JSON::ParserError => e  
+      rescue JSON::ParserError
         response
       end
     end
