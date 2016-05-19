@@ -82,8 +82,9 @@ These commands are available:
 Run `quata --help` for more information, or view the [full usage help][2].
 
 Examples:
+
 ```bash
-# Shows the first two databases
+# Shows the first two databases 
 $ quata see databases per_page:2
 
 # Or more compactly, as CSV
