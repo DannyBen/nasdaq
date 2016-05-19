@@ -3,6 +3,8 @@ require 'open-uri'
 
 module Quata
 
+  # A general purpose HTTP wrapper. This is poor-man's HTTParty with
+  # dynamic methods.
   class WebAPI
     attr_reader :base_url, :after_request_block, :debug_mode
 

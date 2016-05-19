@@ -5,6 +5,7 @@ require 'awesome_print'
 
 module Quata
 
+  # Handles the command line interface
   class CommandLine
     include Singleton
 
@@ -15,6 +16,8 @@ module Quata
       @quandl.format :csv
     end
 
+    # Gets an array of arguments (e.g. ARGV), executes the command if valid
+    # and shows usage patterns / help otherwise.
     def execute(argv=[])
       doc = File.read File.dirname(__FILE__) + '/docopt.txt'
       begin
@@ -27,6 +30,8 @@ module Quata
 
     private
 
+    # Called when the arguments match one of the usage patterns. Will 
+    # delegate action to other, more specialized methods.
     def handle(args)
       path   = args['PATH']
       params = args['PARAMS']
@@ -65,6 +70,8 @@ module Quata
       quandl.debug false
     end
 
+    # Convert a params array like [key:value, key:value] to a hash like
+    # {key: value, key: value}
     def translate_params(params)
       return nil if params.empty?
       result = {}
