@@ -18,11 +18,11 @@ It provides direct access to all of the [Quandl API][1] endpoints.
 Features
 --------------------------------------------------
 
+* Easy to use interface.
+* Use as a library or through the command line.
 * Access any Quandl endpoint directly.
 * Display output in various formats.
 * Save output to a file, including bulk downloads.
-* Easy to use interface.
-* Use as a library or through the command line.
 
 Example
 --------------------------------------------------
@@ -79,7 +79,7 @@ These commands are available:
 `$ quata url PATH [PARAMS...]` - show the constructed URL.  
 `$ quata save FILE PATH [PARAMS...]` - save the output to a file.  
 
-Run `quata --help` for more information.
+Run `quata --help` for more information, or view the [full usage help][2].
 
 Examples:
 ```bash
@@ -113,3 +113,4 @@ $ quata url datasets/WIKI/AAPL rows:5
 ```
 
 [1]: https://www.quandl.com/blog/getting-started-with-the-quandl-api
+[2]: https://github.com/DannyBen/quata/blob/master/lib/quata/docopt.txt
