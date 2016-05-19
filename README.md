@@ -8,8 +8,8 @@ Quata - Quandl API Library and Command Line
 
 ---
 
-Quata is a lightweight ruby library for accessing Quandl with a command 
-line interface.
+Quata is a lightweight ruby library for accessing Quandl, and includes 
+a command line interface.
 
 It provides direct access to all of the [Quandl API][1] endpoints.
 
@@ -21,6 +21,8 @@ Features
 * Access any Quandl endpoint directly.
 * Display output in various formats.
 * Save output to a file, including bulk downloads.
+* Easy to use interface.
+* Use as a library or through the command line.
 
 Example
 --------------------------------------------------
