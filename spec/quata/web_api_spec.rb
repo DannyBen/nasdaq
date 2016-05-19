@@ -96,6 +96,14 @@ describe WebAPI do
       response = api.get 'path'
       expect(response).to eq 'BODY'
     end
+
+    context "on failure" do
+      it "returns a graceful http error" do
+        stub_request(:any, "#{base_url}/path").to_return(body: 'Oops', status: [404, "Not Found"])
+        response = api.get 'path'
+        expect(response).to eq '404 Not Found'
+      end
+    end
   end
 
   describe '#method_missing' do

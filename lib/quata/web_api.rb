@@ -46,7 +46,7 @@ module Quata
       @after_request_block = block
     end
 
-    # Return the response from teh API. 
+    # Return the response from the API. 
     def get(path, extra=nil, params={})
       response = get! path, extra, params
       response = after_request_block.call(response) if after_request_block
@@ -94,7 +94,11 @@ module Quata
     private
 
     def http_get(url)
-      open(url).read
+      begin
+        open(url).read
+      rescue OpenURI::HTTPError => e
+        e.message
+      end
     end
   end
 
