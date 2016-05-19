@@ -57,7 +57,12 @@ result = quandl.save "aapl.csv", "datasets/WIKI/AAPL.csv", rows: 3
 Command Line
 --------------------------------------------------
 
-The command line utility `quata` acts similarly. It provides these commands:
+The command line utility `quata` acts in a similar way. To use your Quandl
+API key, simply set it in the environment variables `QUANDL_KEY`:
+
+`$ export QUANDL_KEY=your_key`
+
+These commands are available:
 
 `$ quata get PATH [PARAMS...]` - print the output.  
 `$ quata pretty PATH [PARAMS...]` - print a pretty JSON.  
@@ -95,4 +100,5 @@ $ quata save output.csv datasets/WIKI/AAPL rows:5
 
 # Shows the URL that Quata has constructed, good for debugging
 $ quata url datasets/WIKI/AAPL rows:5
+# => https://www.quandl.com/api/v3/datasets/WIKI/AAPL.csv?auth_token=YOUR_KEY&rows=5
 ```
