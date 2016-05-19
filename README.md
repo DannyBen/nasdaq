@@ -70,10 +70,10 @@ Run `quata --help` for more information.
 Examples:
 ```bash
 # Shows the first two databases
-quata see databases per_page:2
+$ quata see databases per_page:2
 
 # Or more compactly, as CSV
-quata get databases per_page:2
+$ quata get databases per_page:2
 
 # Prints CSV to screen (CSV is the default in the command line)
 $ quata get datasets/WIKI/AAPL
