@@ -125,5 +125,7 @@ $ quata url datasets/WIKI/AAPL rows:5
 # => https://www.quandl.com/api/v3/datasets/WIKI/AAPL.csv?auth_token=YOUR_KEY&rows=5
 ```
 
+![Quata Demo](https://raw.githubusercontent.com/DannyBen/quata/master/demo.gif "Quata Demo")
+
 [1]: https://www.quandl.com/blog/getting-started-with-the-quandl-api
 [2]: https://github.com/DannyBen/quata/blob/master/lib/quata/docopt.txt
