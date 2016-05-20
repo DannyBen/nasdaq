@@ -6,7 +6,8 @@ module Quata
   # A general purpose HTTP wrapper. This is poor man's HTTParty with
   # dynamic methods.
   class WebAPI
-    attr_reader :base_url, :after_request_block, :debug_mode
+    attr_reader :base_url, :after_request_block
+    attr_accessor :debug, :format
 
     def initialize(base_url)
       @base_url = base_url
@@ -29,19 +30,6 @@ module Quata
         default_params[key] = value
         default_params.delete key if value.nil?
       end
-    end
-
-    # Set the default format that will be appended to the URL. value can be 
-    # a string or a symbol.
-    def format(value=nil)
-      @format = value if value
-      @format
-    end
-
-    # Set debug mode, which will return the requested, restructured URL 
-    # instead of returning the response.
-    def debug(value)
-      @debug_mode = value
     end
 
     # Set a block to be executed after the request. This is called only when
@@ -69,13 +57,13 @@ module Quata
       path = "#{path}/#{extra}" if extra
       url = construct_url path, params
 
-      debug_mode ? url : http_get(url)
+      debug ? url : http_get(url)
     end
 
     # Save the response from the API to a file.
     def save(filename, path, params={})
       response = get! path, nil, params
-      return response if debug_mode
+      return response if debug
       File.write filename, response.to_s
     end
 

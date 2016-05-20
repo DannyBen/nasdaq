@@ -13,7 +13,7 @@ module Quata
 
     def initialize
       @quandl = Quandl.new api_key
-      @quandl.format :csv
+      @quandl.format = :csv
     end
 
     # Gets an array of arguments (e.g. ARGV), executes the command if valid
@@ -54,20 +54,20 @@ module Quata
     end
 
     def pretty(path, params)
-      quandl.format :json
+      quandl.format = :json
       response = quandl.get path, translate_params(params)
       puts JSON.pretty_generate response
     end
 
     def see(path, params)
-      quandl.format :json
+      quandl.format = :json
       ap quandl.get path, translate_params(params)
     end
 
     def url(path, params)
-      quandl.debug true
+      quandl.debug = true
       puts quandl.get path, translate_params(params)
-      quandl.debug false
+      quandl.debug = false
     end
 
     # Convert a params array like [key:value, key:value] to a hash like
