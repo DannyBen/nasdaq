@@ -60,7 +60,7 @@ result = quandl.get! "datasets/WIKI/AAPL.csv", rows: 3 # => CSV string
 To save the output directly to a file, use the `save` method:
 
 ```ruby
-result = quandl.save "aapl.csv", "datasets/WIKI/AAPL.csv", rows: 3
+quandl.save "aapl.csv", "datasets/WIKI/AAPL.csv", rows: 3
 ```
 
 Debugging your request and adding "sticky" query parameters that stay with
