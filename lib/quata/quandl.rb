@@ -10,7 +10,7 @@ class Quandl < Quata::WebAPI
     base_url ||= 'https://www.quandl.com/api/v3'
 
     param auth_token: api_key if api_key
-    format :json
+    self.format = :json
 
     after_request do |response| 
       begin

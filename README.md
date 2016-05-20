@@ -67,7 +67,7 @@ Debugging your request and adding "sticky" query parameters that stay with
 you for the following requests is also easy:
 
 ```ruby
-quandl.debug true
+quandl.debug = true
 quandl.param rows: 10, order: 'asc'
 puts quandl.get 'WIKI/AAPL'
 # => https://www.quandl.com/api/v3/WIKI/AAPL.json?auth_token=key&rows=10&order=asc

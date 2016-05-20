@@ -35,7 +35,7 @@ describe WebAPI do
 
   describe '#format' do
     it "sets and gets format" do
-      api.format :bson
+      api.format = :bson
       expect(api.format).to eq :bson
     end
   end
@@ -58,12 +58,12 @@ describe WebAPI do
     end
 
     it "appends format" do
-      api.format :json
+      api.format = :json
       expect(api.construct_url 'path').to eq "#{api.base_url}/path.json"
     end
 
     it "does not append format if path contains one" do
-      api.format :json
+      api.format = :json
       expect(api.construct_url 'path.csv').to eq "#{api.base_url}/path.csv"
     end
 
@@ -81,7 +81,7 @@ describe WebAPI do
   describe '#get!' do
     context 'in debug mode' do
       before do
-        api.debug true
+        api.debug = true
       end
 
       it "creates a valid url" do
@@ -116,12 +116,12 @@ describe WebAPI do
 
   describe '#method_missing' do
     it "converts to a #get call" do
-      api.debug true
+      api.debug = true
       expect(api.anything_you_want).to eq "#{base_url}/anything_you_want"
     end
 
     it "creates a valid url with all components" do
-      api.debug true
+      api.debug = true
       url = api.master 'extra', param1: 'value1', param2: 'value2'
       expect(url).to eq "#{base_url}/master/extra?param1=value1&param2=value2"
     end
