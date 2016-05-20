@@ -13,15 +13,23 @@ describe WebAPI do
 
   describe '#param' do
     it "sets a default param" do
-      api.param :key, 'value'
+      api.param key: 'value'
       expect(api.default_params[:key]).to eq 'value'
     end
 
-    it "sets compounds params" do
-      api.param :duke, 'nukem'
-      api.param :mike, 'wazowski'
+    it "appends params" do
+      api.param duke: 'nukem', han: 'solo'
+      api.param mike: 'wazowski'
       expect(api.default_params[:duke]).to eq 'nukem'
       expect(api.default_params[:mike]).to eq 'wazowski'
+      expect(api.default_params[:han]).to eq 'solo'
+    end
+
+    it "deletes params" do
+      api.param duke: 'nukem', han: 'solo'
+      api.params han: nil
+      expect(api.default_params).to_not have_key 'han'
+      expect(api.default_params[:duke]).to eq 'nukem'
     end
   end
 
@@ -60,12 +68,12 @@ describe WebAPI do
     end
 
     it "appends params as a query string" do
-      api.param :key, 'value'
+      api.param key: 'value'
       expect(api.construct_url 'path').to eq "#{api.base_url}/path?key=value"
     end
 
     it "merges default params with given params" do
-      api.param :key, 'value'
+      api.param key: 'value'
       expect(api.construct_url 'path', mac: 'cheese').to eq "#{api.base_url}/path?key=value&mac=cheese"
     end
   end

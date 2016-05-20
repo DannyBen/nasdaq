@@ -22,10 +22,13 @@ module Quata
       end
     end
 
-    # Add a parameter to the default query string. Good for adding keys that
-    # are always needed, like API keys.
-    def param(key, value)
-      default_params[key] = value
+    # Add one or more parameter to the default query string. Good for 
+    # adding keys that are always needed, like API keys.
+    def param(params)
+      params.each do |key, value|
+        default_params[key] = value
+        default_params.delete key if value.nil?
+      end
     end
 
     # Set the default format that will be appended to the URL. value can be 
