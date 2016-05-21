@@ -36,6 +36,7 @@ Features
 * Access any Quandl endpoint directly.
 * Display output in various formats.
 * Save output to a file, including bulk downloads.
+* Includes a built in file cache.
 
 Usage
 --------------------------------------------------
@@ -138,7 +139,26 @@ $ quata url datasets/WIKI/AAPL rows:5
 # => https://www.quandl.com/api/v3/datasets/WIKI/AAPL.csv?auth_token=YOUR_KEY&rows=5
 ```
 
+Caching
+--------------------------------------------------
+
+Quata uses the [WebCache][3] gem for automatic HTTP caching.
+By default, all requests are cached for 60 minutes in the `./cache`
+directory.
+
+You can access the `WebCache` object through `quandle.cache`, so you 
+can disable it, change its directory, or change its lifetime.
+
+```ruby
+quandl = Quandl.new 'Your API Key'
+quandl.cache.disable             # Skip caching altogether
+quandl.cache.dir = 'tmp/cache'   # Change cache folder
+quandl.cache.life = 120          # Change cache life to 2 minutes
+quandl.cache.enable              # Enable caching
+```
+
 ![Quata Demo](https://raw.githubusercontent.com/DannyBen/quata/master/demo.gif "Quata Demo")
 
 [1]: https://www.quandl.com/blog/getting-started-with-the-quandl-api
 [2]: https://github.com/DannyBen/quata/blob/master/lib/quata/docopt.txt
+[3]: https://github.com/DannyBen/webcache

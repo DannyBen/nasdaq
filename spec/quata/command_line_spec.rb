@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe CommandLine do
-  WebMock.allow_net_connect!
   let(:cli) { Quata::CommandLine.instance }
   let(:premium) { ENV['QUANDL_PREMIUM']}
 

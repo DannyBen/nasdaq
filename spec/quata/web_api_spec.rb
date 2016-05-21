@@ -2,12 +2,12 @@ require 'spec_helper'
 
 describe WebAPI do
 
-  let(:base_url) { 'http://base.url.com' }
+  let(:base_url) { 'http://example.com' }
   let(:api) { WebAPI.new base_url }
 
   describe '#new' do
     it "sets base url" do
-      expect(api.base_url).to eq 'http://base.url.com'
+      expect(api.base_url).to eq base_url
     end
   end
 
@@ -99,16 +99,14 @@ describe WebAPI do
 
   describe '#get' do
     it "runs an after_request block" do
-      stub_request(:any, "#{base_url}/path").to_return(body: 'body')
-      api.after_request { |response| response.upcase }
+      api.after_request { |response| 'updated body' }
       response = api.get 'path'
-      expect(response).to eq 'BODY'
+      expect(response).to eq 'updated body'
     end
 
     context "on failure" do
       it "returns a graceful http error" do
-        stub_request(:any, "#{base_url}/path").to_return(body: 'Oops', status: [404, "Not Found"])
-        response = api.get 'path'
+        response = api.get 'not_found'
         expect(response).to eq '404 Not Found'
       end
     end
@@ -126,9 +124,9 @@ describe WebAPI do
       expect(url).to eq "#{base_url}/master/extra?param1=value1&param2=value2"
     end
 
-    it "raises an exception on invalid url" do
-      stub_request(:any, /#{base_url}/).to_raise NoMethodError
-      expect {api.not_there}.to raise_error NoMethodError
+    it "sets last_error on invalid url" do
+      api.not_there
+      expect(api.last_error).to eq '404 Not Found'
     end
   end
 
@@ -136,12 +134,11 @@ describe WebAPI do
     it "saves a file" do
       File.unlink 'tmp.txt' if File.exist? 'tmp.txt'
       expect(File).not_to exist 'tmp.txt'
-      stub_request(:any, "#{base_url}/path").to_return(body: 'body') 
 
-      api.save 'tmp.txt', 'path'
+      api.save 'tmp.txt', '/'
 
       expect(File).to exist 'tmp.txt'
-      expect(File.read 'tmp.txt').to eq 'body'
+      expect(File.size 'tmp.txt').to be > 500
       File.unlink 'tmp.txt'
     end
   end

@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe "quandl queries" do
 
-  WebMock.allow_net_connect!
   let(:quandl) { Quandl.new ENV['QUANDL_KEY'] }
   let(:premium) { ENV['QUANDL_PREMIUM']}
 

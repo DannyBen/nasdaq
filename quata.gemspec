@@ -18,11 +18,11 @@ Gem::Specification.new do |s|
 
   s.add_runtime_dependency 'docopt', '~> 0.5'
   s.add_runtime_dependency 'awesome_print', '~> 1.6'
+  s.add_runtime_dependency 'webcache', '~> 0.1'
 
   s.add_development_dependency 'runfile', '~> 0.7'
   s.add_development_dependency 'runfile-tasks', '~> 0.4'
   s.add_development_dependency 'rspec', '~> 3.4'
-  s.add_development_dependency 'webmock', '~> 2.0'
   s.add_development_dependency 'rdoc', '~> 4.2'
   s.add_development_dependency 'byebug', '~> 9.0'
   s.add_development_dependency 'simplecov', '~> 0.11'
