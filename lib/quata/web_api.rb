@@ -1,5 +1,6 @@
 require 'uri'
 require 'open-uri'
+require 'webcache'
 
 module Quata
 
@@ -7,20 +8,17 @@ module Quata
   # dynamic methods.
   class WebAPI
     attr_reader :base_url, :after_request_block
-    attr_accessor :debug, :format
+    attr_accessor :debug, :format, :cache
 
     def initialize(base_url)
       @base_url = base_url
+      @cache = WebCache.new
     end
 
     # Allow using any method as the first segment of the path
     # object.user 'details' becomes object.get 'user/details'
     def method_missing(method_sym, *arguments, &block)
-      begin
-        get "/#{method_sym}", *arguments
-      rescue
-        super
-      end
+      get "/#{method_sym}", *arguments
     end
 
     # Add one or more parameter to the default query string. Good for 
@@ -30,6 +28,11 @@ module Quata
         default_params[key] = value
         default_params.delete key if value.nil?
       end
+    end
+
+    # Return the last HTTP error, or false if all was good
+    def last_error
+      cache.last_error
     end
 
     # Set a block to be executed after the request. This is called only when
@@ -57,7 +60,7 @@ module Quata
       path = "#{path}/#{extra}" if extra
       url = construct_url path, params
 
-      debug ? url : http_get(url)
+      debug ? url : cache.get(url)
     end
 
     # Save the response from the API to a file.
@@ -84,15 +87,5 @@ module Quata
       @default_params ||= {}
     end
 
-    private
-
-    def http_get(url)
-      begin
-        open(url).read
-      rescue OpenURI::HTTPError => e
-        e.message
-      end
-    end
   end
-
 end
