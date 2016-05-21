@@ -36,6 +36,7 @@ Features
 * Access any Quandl endpoint directly.
 * Display output in various formats.
 * Save output to a file, including bulk downloads.
+* Includes a built in file cache.
 
 Usage
 --------------------------------------------------
