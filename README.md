@@ -146,7 +146,7 @@ Quata uses the [WebCache][3] gem for automatic HTTP caching.
 By default, all requests are cached for 60 minutes in the `./cache`
 directory.
 
-You can access the `WebCache` object through `quandle.cache`, so you 
+You can access the `WebCache` object through `quandl.cache`, so you 
 can disable it, change its directory, or change its lifetime.
 
 ```ruby
