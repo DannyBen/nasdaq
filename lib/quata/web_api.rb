@@ -8,11 +8,10 @@ module Quata
   # dynamic methods.
   class WebAPI
     attr_reader :base_url, :after_request_block
-    attr_accessor :debug, :format, :cache
+    attr_accessor :debug, :format
 
     def initialize(base_url)
       @base_url = base_url
-      @cache = WebCache.new
     end
 
     # Allow using any method as the first segment of the path
@@ -28,6 +27,10 @@ module Quata
         default_params[key] = value
         default_params.delete key if value.nil?
       end
+    end
+
+    def cache
+      @cache ||= WebCache.new
     end
 
     # Return the last HTTP error, or false if all was good
