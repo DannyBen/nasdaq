@@ -38,7 +38,7 @@ describe "quandl queries" do
       expect(response).to match /Date,Open,High,Low,Close,Volume/
     end
 
-    it "fails gracefully" do
+    it "fails with honor" do
       response = quandl.get "no_can_do"
       expect(response).to eq '400 Bad Request'
     end

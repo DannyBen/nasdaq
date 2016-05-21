@@ -91,7 +91,7 @@ module Quata
       result = {}
       result[:use_cache] = true
       result[:cache_dir] = cache_dir if cache_dir
-      result[:cache_life] = cache_life if cache_life
+      result[:cache_life] = cache_life.to_i if cache_life
       result
     end
 
