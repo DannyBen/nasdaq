@@ -71,6 +71,5 @@ describe CommandLine do
       end
     end
 
-
   end
 end
