@@ -15,6 +15,19 @@ It provides direct access to all of the [Quandl API][1] endpoints.
 
 ---
 
+Install
+--------------------------------------------------
+
+```
+$ gem install quata
+```
+
+Or with bundler:
+
+```ruby
+gem 'quata'
+```
+
 Features
 --------------------------------------------------
 
