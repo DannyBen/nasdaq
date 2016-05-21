@@ -157,6 +157,9 @@ quandl.cache.life = 120          # Change cache life to 2 minutes
 quandl.cache.enable              # Enable caching
 ```
 
+Terminalcast
+--------------------------------------------------
+
 ![Quata Demo](https://raw.githubusercontent.com/DannyBen/quata/master/demo.gif "Quata Demo")
 
 [1]: https://www.quandl.com/blog/getting-started-with-the-quandl-api
