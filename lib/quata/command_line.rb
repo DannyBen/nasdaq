@@ -12,7 +12,7 @@ module Quata
     attr_reader :quandl
 
     def initialize
-      @quandl = Quandl.new api_key
+      @quandl = Quandl.new api_key, options
       @quandl.format = :csv
     end
 
@@ -86,6 +86,22 @@ module Quata
       @api_key ||= ENV['QUANDL_KEY']
     end
 
-  end
+    def options
+      return {} unless cache_dir || cache_life
+      result = {}
+      result[:use_cache] = true
+      result[:cache_dir] = cache_dir if cache_dir
+      result[:cache_life] = cache_life.to_i if cache_life
+      result
+    end
 
+    def cache_dir
+      ENV['QUANDL_CACHE_DIR']
+    end
+
+    def cache_life
+      ENV['QUANDL_CACHE_LIFE']
+    end
+
+  end
 end

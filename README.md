@@ -36,7 +36,7 @@ Features
 * Access any Quandl endpoint directly.
 * Display output in various formats.
 * Save output to a file, including bulk downloads.
-* Includes a built in file cache.
+* Includes a built in file cache (disabled by default).
 
 Usage
 --------------------------------------------------
@@ -143,19 +143,35 @@ Caching
 --------------------------------------------------
 
 Quata uses the [WebCache][3] gem for automatic HTTP caching.
-By default, all requests are cached for 60 minutes in the `./cache`
-directory.
+To take the path of least surprises, caching is disabled by default.
 
-You can access the `WebCache` object through `quandl.cache`, so you 
-can disable it, change its directory, or change its lifetime.
+You can enable and customize it by either passing options on 
+initialization, or by accessing the `WebCache` object directly at 
+a later stage.
 
 ```ruby
+quandl = Quandl.new 'Your API Key', use_cache: true
+quandl = Quandl.new 'Your API Key', use_cache: true, cache_dir: 'tmp'
+quandl = Quandl.new 'Your API Key', use_cache: true, cache_life: 120
+
+# or 
+
 quandl = Quandl.new 'Your API Key'
-quandl.cache.disable             # Skip caching altogether
+quandl.cache.enable
 quandl.cache.dir = 'tmp/cache'   # Change cache folder
 quandl.cache.life = 120          # Change cache life to 2 minutes
-quandl.cache.enable              # Enable caching
 ```
+
+To enable caching for the command line, simply set one or both of 
+these environment variables:
+
+```
+$ export QUANDL_CACHE_DIR=cache
+$ export QUANDL_CACHE_LIFE=120
+$ quata get datasets/WIKI/AAPL
+# => This call will be cached
+```
+
 
 Terminalcast
 --------------------------------------------------

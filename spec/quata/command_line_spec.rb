@@ -4,6 +4,34 @@ describe CommandLine do
   let(:cli) { Quata::CommandLine.instance }
   let(:premium) { ENV['QUANDL_PREMIUM']}
 
+  describe '#initialize' do
+    let(:cli) { Quata::CommandLine.clone.instance }
+
+    context "without environment variables" do
+      it "has cache disabled" do
+        expect(cli.quandl.cache).not_to be_enabled
+      end
+    end
+
+    context "with CACHE_DIR" do
+      it "enables cache" do
+        ENV['QUANDL_CACHE_DIR'] = 'hello'
+        expect(cli.quandl.cache).to be_enabled
+        expect(cli.quandl.cache.dir).to eq 'hello'
+        ENV.delete 'QUANDL_CACHE_DIR'
+      end
+    end
+
+    context "with CACHE_LIFE" do
+      it "enables cache" do
+        ENV['QUANDL_CACHE_LIFE'] = '123'
+        expect(cli.quandl.cache).to be_enabled
+        expect(cli.quandl.cache.life).to eq 123
+        ENV.delete 'QUANDL_CACHE_LIFE'
+      end
+    end
+  end
+
   describe '#execute' do
     context "without arguments" do
       it "shows usage patterns" do
@@ -66,11 +94,10 @@ describe CommandLine do
     context "with an invalid path" do
       let(:command) { %W[get not_here] }
       
-      it "fails gracefully" do
+      it "fails with honor" do
         expect {cli.execute command}.to output(/400 Bad Request/).to_stdout
       end
     end
-
-
   end
+
 end
