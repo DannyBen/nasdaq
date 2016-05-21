@@ -166,8 +166,8 @@ To enable caching for the command line, simply set one or both of
 these environment variables:
 
 ```
-$ export QUANDL_CACHE_DIR=cache
-$ export QUANDL_CACHE_LIFE=120
+$ export QUANDL_CACHE_DIR=cache   # default: 'cache'
+$ export QUANDL_CACHE_LIFE=120    # default: 3600 (1 hour)
 $ quata get datasets/WIKI/AAPL
 # => This call will be cached
 ```
