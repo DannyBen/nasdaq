@@ -7,7 +7,7 @@ module Quata
   # A general purpose HTTP wrapper. This is poor man's HTTParty with
   # dynamic methods.
   class WebAPI
-    attr_reader :base_url, :after_request_block
+    attr_reader :base_url, :after_request_block, :last_error
     attr_accessor :debug, :format
 
     def initialize(base_url)
@@ -31,11 +31,6 @@ module Quata
 
     def cache
       @cache ||= WebCache.new
-    end
-
-    # Return the last HTTP error, or false if all was good
-    def last_error
-      cache.last_error
     end
 
     # Set a block to be executed after the request. This is called only when
@@ -63,7 +58,11 @@ module Quata
       path = "#{path}/#{extra}" if extra
       url = construct_url path, params
 
-      debug ? url : cache.get(url)
+      return url if debug 
+      
+      response = cache.get(url)
+      @last_error = response.error
+      response.content
     end
 
     # Save the response from the API to a file.
