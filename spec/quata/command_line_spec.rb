@@ -4,10 +4,20 @@ describe CommandLine do
   let(:cli) { Quata::CommandLine.instance }
   let(:premium) { ENV['QUANDL_PREMIUM']}
 
+  before do
+    ENV['QUANDL_CACHE_DIR'] = 'cache'
+    ENV['QUANDL_CACHE_LIFE'] = '86400'
+  end
+
   describe '#initialize' do
     let(:cli) { Quata::CommandLine.clone.instance }
 
     context "without environment variables" do
+      before do
+        ENV['QUANDL_CACHE_DIR'] = nil
+        ENV['QUANDL_CACHE_LIFE'] = nil
+      end
+
       it "has cache disabled" do
         expect(cli.quandl.cache).not_to be_enabled
       end

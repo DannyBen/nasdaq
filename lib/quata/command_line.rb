@@ -16,7 +16,7 @@ module Quata
       begin
         args = Docopt::docopt(doc, argv: argv, version: VERSION)
         handle args
-      rescue Docopt::Exit, Fredric::MissingAuth => e
+      rescue Docopt::Exit => e
         puts e.message
       end
     end
@@ -41,10 +41,6 @@ module Quata
       @file   = args['FILE']
       @csv    = args['--csv']
 
-      unless api_key
-        raise Fredric::MissingAuth, "Missing Authentication\nPlease set FREDRIC_KEY=y0urAP1k3y"
-      end
-      
       return get    if args['get']
       return pretty if args['pretty']
       return see    if args['see']

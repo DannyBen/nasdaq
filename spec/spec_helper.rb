@@ -9,6 +9,11 @@ include Quata
 
 RSpec.configure do |config|
   config.filter_run_excluding type: :premium unless ENV['QUANDL_PREMIUM']
+  config.before :suite do 
+    puts "Running spec_helper > before :suite"
+    puts "Flushing cache"
+    APICake::Base.new.cache.flush
+  end
 end
 
 def fixture(filename, data=nil)
