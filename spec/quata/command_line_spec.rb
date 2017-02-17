@@ -43,7 +43,7 @@ describe CommandLine do
       let(:command) { %w[url doesnt really:matter] }
 
       it "returns a url" do
-        expected = %r[quandl.com/api/v3/doesnt.csv?.*really=matter]
+        expected = %r[quandl.com/api/v3/doesnt?.*really=matter]
         expect {cli.execute command}.to output(expected).to_stdout
       end
     end
@@ -51,8 +51,8 @@ describe CommandLine do
     context "with get command" do
       let(:command) { %w[get datasets/WIKI/AAPL rows:5] }
 
-      it "prints csv output" do
-        expected = /Date,Open,High,Low,Close,Volume/
+      it "prints json output" do
+        expected = /\{"dataset":.*\}/
         expect {cli.execute command}.to output(expected).to_stdout
       end
     end
@@ -70,7 +70,7 @@ describe CommandLine do
       let(:command) { %w[see datasets/WIKI/AAPL rows:5] }
 
       it "awesome-prints output" do
-        expected = /:dataset_code.*=>.*"AAPL"/
+        expected = /"dataset_code".*=>.*"AAPL"/
         expect {cli.execute command}.to output(expected).to_stdout
       end
     end
@@ -95,7 +95,8 @@ describe CommandLine do
       let(:command) { %W[get not_here] }
       
       it "fails with honor" do
-        expect {cli.execute command}.to output(/400 Bad Request/).to_stdout
+        expected = /Error.*We could not recognize the URL you requested: \/api\/v3\/not_here/
+        expect {cli.execute command}.to output(expected).to_stdout
       end
     end
   end
