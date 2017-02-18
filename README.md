@@ -28,6 +28,7 @@ Or with bundler:
 gem 'quata'
 ```
 
+
 Features
 --------------------------------------------------
 
@@ -38,6 +39,7 @@ Features
 * Save output to a file, including bulk downloads.
 * Includes a built in file cache (disabled by default).
 
+
 Usage
 --------------------------------------------------
 
@@ -45,7 +47,7 @@ First, require and initialize with your API key
 
 ```ruby
 require 'quata'
-quandl = Quandl.new 'Your API Key'
+quandl = Quata::API.new 'Your API Key'
 ```
 
 Now, you can access any Quandl endpoint with any optional parameter, like
@@ -62,32 +64,72 @@ a method name, like this:
 result = quandl.datasets "WIKI/AAPL", rows: 3
 ```
 
-By default, you will get a ruby hash in return. If you wish to get the raw
-output, you can use the `get!` method:
+In other words, these calls are the same:
 
 ```ruby
-result = quandl.get! "datasets/WIKI/AAPL", rows: 3 # => JSON string
-result = quandl.get! "datasets/WIKI/AAPL.json", rows: 3 # => JSON string
-result = quandl.get! "datasets/WIKI/AAPL.csv", rows: 3 # => CSV string
+quandl.get 'endpoint', param: value
+quandl.endpoint, param: value
+```
+
+as well as these two:
+
+```ruby
+quandl.get 'endpoint/sub', param: value
+quandl.endpoint 'sub', param: value
+```
+
+By default, you will get a ruby hash in return. If you wish to have more 
+control over the response, use the `get!` method instead:
+
+```ruby
+result = quandl.get! "datasets/WIKI/AAPL", rows: 3
+
+# Request Object
+p payload.request.class
+# => HTTParty::Request
+
+# Response Object
+p payload.response.class
+# => Net::HTTPOK
+
+p payload.response.body
+# => JSON string
+
+p payload.response.code
+# => 200
+
+p payload.response.msg
+# => OK
+
+# Headers Object
+p payload.headers
+# => Hash with headers
+
+# Parsed Response Object
+p payload.parsed_response
+# => Hash with HTTParty parsed response 
+#    (this is the content returned with #get)
+```
+
+You can get the response as CSV by calling `get_csv`:
+
+```ruby
+result = quandl.get_csv "datasets/WIKI/AAPL", rows: 3
+# => CSV string
 ```
 
 To save the output directly to a file, use the `save` method:
 
 ```ruby
-quandl.save "aapl.csv", "datasets/WIKI/AAPL.csv", rows: 3
+quandl.save "filename.json", "datasets/WIKI/AAPL", rows: 3
 ```
 
-Debugging your request and adding "sticky" query parameters that stay with
-you for the following requests is also easy:
+Or, to save CSV, use the `save_csv` method:
 
 ```ruby
-quandl.debug = true
-quandl.param rows: 10, order: 'asc'
-puts quandl.datasets 'WIKI/AAPL'
-# => https://www.quandl.com/api/v3/datasets/WIKI/AAPL.json?auth_token=key&rows=10&order=asc
-
-quandl.param order: nil # remove param
+quandl.save_csv "filename.csv", "datasets/WIKI/AAPL", rows: 3
 ```
+
 
 Command Line
 --------------------------------------------------
@@ -142,7 +184,7 @@ $ quata url datasets/WIKI/AAPL rows:5
 Caching
 --------------------------------------------------
 
-Quata uses the [WebCache][3] gem for automatic HTTP caching.
+Quata uses the [Lightly][3] gem for automatic HTTP caching.
 To take the path of least surprises, caching is disabled by default.
 
 You can enable and customize it by either passing options on 
@@ -150,13 +192,13 @@ initialization, or by accessing the `WebCache` object directly at
 a later stage.
 
 ```ruby
-quandl = Quandl.new 'Your API Key', use_cache: true
-quandl = Quandl.new 'Your API Key', use_cache: true, cache_dir: 'tmp'
-quandl = Quandl.new 'Your API Key', use_cache: true, cache_life: 120
+quandl = Quata::API.new 'Your API Key', use_cache: true
+quandl = Quata::API.new 'Your API Key', use_cache: true, cache_dir: 'tmp'
+quandl = Quata::API.new 'Your API Key', use_cache: true, cache_life: 120
 
 # or 
 
-quandl = Quandl.new 'Your API Key'
+quandl = Quata::API.new 'Your API Key'
 quandl.cache.enable
 quandl.cache.dir = 'tmp/cache'   # Change cache folder
 quandl.cache.life = 120          # Change cache life to 2 minutes
@@ -180,4 +222,4 @@ Terminalcast
 
 [1]: https://www.quandl.com/blog/getting-started-with-the-quandl-api
 [2]: https://github.com/DannyBen/quata/blob/master/lib/quata/docopt.txt
-[3]: https://github.com/DannyBen/webcache
+[3]: https://github.com/DannyBen/lightly
