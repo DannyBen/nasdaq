@@ -9,13 +9,6 @@ module Quata
   class CommandLine
     include Singleton
 
-    attr_reader :quandl
-
-    def initialize
-      @quandl = Quandl.new api_key, options
-      @quandl.format = :csv
-    end
-
     # Gets an array of arguments (e.g. ARGV), executes the command if valid
     # and shows usage patterns / help otherwise.
     def execute(argv=[])
@@ -28,71 +21,88 @@ module Quata
       end
     end
 
+    def quandl
+      @quandl ||= quandl!
+    end
+
     private
+
+    attr_reader :path, :params, :file, :csv
+
+    def quandl!
+      API.new api_key, options
+    end
 
     # Called when the arguments match one of the usage patterns. Will 
     # delegate action to other, more specialized methods.
     def handle(args)
-      path   = args['PATH']
-      params = args['PARAMS']
-      file   = args['FILE']
-      
-      return get(path, params)        if args['get']
-      return pretty(path, params)     if args['pretty']
-      return see(path, params)        if args['see']
-      return url(path, params)        if args['url']
-      return save(file, path, params) if args['save']
+      @path   = args['PATH']
+      @params = translate_params args['PARAMS']
+      @file   = args['FILE']
+      @csv    = args['--csv']
+
+      return get    if args['get']
+      return pretty if args['pretty']
+      return see    if args['see']
+      return url    if args['url']
+      return save   if args['save']
     end
 
-    def get(path, params)
-      puts quandl.get! path, translate_params(params)
+    def get
+      if csv
+        puts quandl.get_csv path, params
+      else
+        payload = quandl.get! path, params
+        puts payload.response.body
+      end
     end
 
-    def save(file, path, params)
-      success = quandl.save file, path, translate_params(params)
+    def save
+      if csv
+        success = quandl.save_csv file, path, params
+      else
+        success = quandl.save file, path, params
+      end
       puts success ? "Saved #{file}" : "Saving failed"
     end
 
-    def pretty(path, params)
-      quandl.format = :json
-      response = quandl.get path, translate_params(params)
-      puts JSON.pretty_generate response
+    def pretty
+      payload = quandl.get path, params
+      puts JSON.pretty_generate payload
     end
 
-    def see(path, params)
-      quandl.format = :json
-      ap quandl.get path, translate_params(params)
+    def see
+      ap quandl.get path, params
     end
 
-    def url(path, params)
-      quandl.debug = true
-      puts quandl.get path, translate_params(params)
-      quandl.debug = false
+    def url
+      puts quandl.url path, params
     end
 
     # Convert a params array like [key:value, key:value] to a hash like
     # {key: value, key: value}
-    def translate_params(params)
-      return nil if params.empty?
+    def translate_params(pairs)
       result = {}
-      params.each do |param|
-        key, value = param.split ':'
-        result[key] = value
+      return result if pairs.empty?
+      pairs.each do |pair|
+        key, value = pair.split ':'
+        result[key.to_sym] = value
       end
       result
     end
 
-    def api_key
-      @api_key ||= ENV['QUANDL_KEY']
-    end
-
     def options
-      return {} unless cache_dir || cache_life
       result = {}
+      return result unless cache_dir || cache_life
+
       result[:use_cache] = true
       result[:cache_dir] = cache_dir if cache_dir
       result[:cache_life] = cache_life.to_i if cache_life
       result
+    end
+
+    def api_key
+      ENV['QUANDL_KEY']
     end
 
     def cache_dir

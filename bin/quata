@@ -1,4 +1,9 @@
 #!/usr/bin/env ruby
 
 require 'quata'
-Quata::CommandLine.instance.execute ARGV
+
+begin
+  Quata::CommandLine.instance.execute ARGV
+rescue Quata::BadResponse => e
+  STDERR.puts "#{e.class} - #{e.message}"
+end

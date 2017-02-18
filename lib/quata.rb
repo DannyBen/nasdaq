@@ -1,4 +1,4 @@
 require 'quata/version'
-require 'quata/web_api'
-require 'quata/quandl'
+require 'quata/api'
 require 'quata/command_line'
+require 'quata/exceptions'

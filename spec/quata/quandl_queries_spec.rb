@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "quandl queries" do
 
-  let(:quandl) { Quandl.new ENV['QUANDL_KEY'] }
+  let(:quandl) { API.new ENV['QUANDL_KEY'] }
   let(:premium) { ENV['QUANDL_PREMIUM']}
 
   describe '#datasets' do
@@ -10,45 +10,39 @@ describe "quandl queries" do
       @response = quandl.datasets 'WIKI/AAPL', rows: 3
     end
 
-    it "returns a hash" do      
-      expect(@response).to have_key :dataset
-      expect(@response[:dataset][:dataset_code]).to eq 'AAPL'
+    it "returns a hash" do
+      expect(@response).to have_key 'dataset'
+      expect(@response['dataset']['dataset_code']).to eq 'AAPL'
     end
 
-    it "obeys query string parameters" do      
-      expect(@response[:dataset][:data].length).to eq 3
+    it "obeys query string parameters" do
+      expect(@response['dataset']['data'].length).to eq 3
     end
   end
 
   describe '#databases' do
     it "returns a hash" do
       response = quandl.databases per_page: 2
-      expect(response[:databases].length).to eq 2
+      expect(response['databases'].length).to eq 2
     end
   end
 
   describe '#get' do
     it "returns hash" do
       response = quandl.get "datasets/WIKI/AAPL", rows: 3
-      expect(response).to have_key :dataset
+      expect(response).to have_key 'dataset'
     end
 
-    it "returns csv" do
+    it "returns a csv array" do
       response = quandl.get "datasets/WIKI/AAPL.csv", rows: 3
-      expect(response).to match /Date,Open,High,Low,Close,Volume/
+      expected = ["Date", "Open", "High", "Low"]
+      expect(response).to be_an Array
+      expect(expected - response.first).to be_empty
     end
 
     it "fails with honor" do
       response = quandl.get "no_can_do"
-      expect(response).to eq '400 Bad Request'
-    end
-  end
-
-  describe '#get!' do
-    it "returns raw json response" do
-      response = quandl.get! "datasets/WIKI/AAPL", rows: 3
-      expect {JSON.parse response}.to_not raise_error
-      expect(JSON.parse response).to have_key 'dataset'
+      expect(response).to match /Error.*We could not recognize the URL you requested: \/api\/v3\/no_can_do/
     end
   end
 
