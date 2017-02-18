@@ -67,6 +67,15 @@ describe CommandLine do
       end
     end
 
+    context "with get --csv command" do
+      let(:command) { %w[get --csv datasets/WIKI/AAPL rows:5] }
+
+      it "prints csv output" do
+        expected = /Date,Open,High,Low,Close/
+        expect {cli.execute command}.to output(expected).to_stdout
+      end
+    end
+
     context "with pretty command" do
       let(:command) { %w[pretty datasets/WIKI/AAPL rows:5] }
 
@@ -86,18 +95,69 @@ describe CommandLine do
     end
 
     context "with save command" do
+      let(:command) { %W[save tmp.json datasets/WIKI/FB start_date:2017-01-01 end_date:2017-01-10] }
+      let(:filename) { 'tmp.json' }
+
+      before do 
+        File.unlink filename if File.exist? filename
+        expect(File).not_to exist filename
+      end
+
+      after do 
+        File.unlink filename
+      end
+
+      it "saves a file" do
+        expected = "Saved #{filename}\n"
+
+        expect {cli.execute command}.to output(expected).to_stdout
+        expect(File).to exist filename
+        expect(File.read filename).to match /\{"dataset":\{"id":9775687,"dataset_code"/
+      end
+    end
+
+    context "with save command and a bulk premium download" do
       let(:command) { %W[save tmp.zip databases/#{premium}/data download_type:partial] }
+      let(:filename) { 'tmp.zip' }
+
+      before do 
+        File.unlink filename if File.exist? filename
+        expect(File).not_to exist filename
+      end
+
+      after do
+        File.unlink filename
+      end
 
       it "saves a file", type: :premium do
-        File.unlink 'tmp.zip' if File.exist? 'tmp.zip'
-        expect(File).not_to exist 'tmp.zip'
         expected = "Saved tmp.zip\n"
 
         expect {cli.execute command}.to output(expected).to_stdout
         expect(File).to exist 'tmp.zip'
         expect(File.size 'tmp.zip').to be > 10000
+      end
+    end
 
-        File.unlink 'tmp.zip'
+    context "with save --csv command" do
+      let(:command) { %W[save --csv tmp.csv datasets/WIKI/FB start_date:2017-01-01 end_date:2017-01-10] }
+      let(:filename) { 'tmp.csv' }
+
+      before do
+        File.unlink filename if File.exist? filename
+        expect(File).not_to exist filename
+      end
+
+      after do
+        File.unlink filename
+      end
+
+      it "saves a csv file" do
+        expected = "Saved #{filename}\n"
+
+        expect {cli.execute command}.to output(expected).to_stdout
+        expect(File).to exist filename
+        fixture = fixture('fb.csv')
+        expect(File.read filename).to match /#{fixture}/m
       end
     end
 

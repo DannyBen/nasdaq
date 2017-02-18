@@ -38,21 +38,5 @@ module Quata
 
       payload.response.body
     end
-
-    # Send a request, convert it to CSV and save it to a file.
-    def save_csv(file, *args)
-      File.write file, get_csv(*args)
-    end
-
-    private
-
-    # Determins which part of the data is best suited to be displayed 
-    # as CSV. 
-    # - In case there is an array in the data, it will be returned.
-    # - Otherwise, we will use the entire response as a single row CSV.
-    def csv_node(data)
-      arrays = data.keys.select { |key| data[key].is_a? Array }
-      arrays.empty? ? [data] : data[arrays.first]
-    end
   end
 end
