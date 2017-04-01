@@ -1,7 +1,7 @@
 require "runfile-tasks"
 require_relative 'lib/quata'
 
-name    "Quata Developer Toolbelt"
+title   "Quata Developer Toolbelt"
 summary "Runfile tasks for building the Quata gem"
 version Quata::VERSION
 
