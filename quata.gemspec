@@ -18,14 +18,14 @@ Gem::Specification.new do |s|
   s.required_ruby_version = ">= 2.0.0"
 
   s.add_runtime_dependency 'docopt', '~> 0.5'
-  s.add_runtime_dependency 'awesome_print', '~> 1.6'
+  s.add_runtime_dependency 'awesome_print', '~> 1.8'
   s.add_runtime_dependency 'apicake', '~> 0.1'
 
-  s.add_development_dependency 'runfile', '~> 0.9'
+  s.add_development_dependency 'runfile', '~> 0.10'
   s.add_development_dependency 'runfile-tasks', '~> 0.4'
-  s.add_development_dependency 'rspec', '~> 3.4'
+  s.add_development_dependency 'rspec', '~> 3.6'
   s.add_development_dependency 'rdoc', '~> 5.1'
   s.add_development_dependency 'byebug', '~> 9.0'
-  s.add_development_dependency 'simplecov', '~> 0.14'
-  s.add_development_dependency 'yard', '~> 0.8'
+  s.add_development_dependency 'simplecov', '~> 0.15'
+  s.add_development_dependency 'yard', '~> 0.9'
 end
