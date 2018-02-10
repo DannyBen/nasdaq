@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe CommandLine do
-  let(:cli) { Quata::CommandLine.instance }
+  let(:cli) { Quata::CommandLine }
   let(:premium) { ENV['QUANDL_PREMIUM']}
 
   before do
