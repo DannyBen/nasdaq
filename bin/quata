@@ -3,7 +3,7 @@
 require 'quata'
 
 begin
-  Quata::CommandLine.instance.execute ARGV
+  Quata::CommandLine.execute ARGV
 rescue Quata::BadResponse => e
   STDERR.puts "#{e.class} - #{e.message}"
 end
