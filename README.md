@@ -1,10 +1,10 @@
 Quata - Quandl API Library and Command Line
 ==================================================
 
-[![Gem](https://img.shields.io/gem/v/quata.svg?style=flat-square)](https://rubygems.org/gems/quata)
-[![Build](https://img.shields.io/travis/DannyBen/quata/master.svg?style=flat-square)](https://travis-ci.org/DannyBen/quata)
-[![Maintainability](https://img.shields.io/codeclimate/maintainability/DannyBen/quata.svg?style=flat-square)](https://codeclimate.com/github/DannyBen/quata)
-[![Dependencies](https://img.shields.io/gemnasium/DannyBen/quata.svg?style=flat-square)](https://gemnasium.com/DannyBen/quata)
+[![Gem Version](https://badge.fury.io/rb/quata.svg)](https://badge.fury.io/rb/quata)
+[![Build Status](https://travis-ci.org/DannyBen/quata.svg?branch=master)](https://travis-ci.org/DannyBen/quata)
+[![Maintainability](https://api.codeclimate.com/v1/badges/463cd9899bf9357303ab/maintainability)](https://codeclimate.com/github/DannyBen/quata/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/463cd9899bf9357303ab/test_coverage)](https://codeclimate.com/github/DannyBen/quata/test_coverage)
 
 ---
 
