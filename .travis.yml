@@ -1,16 +1,14 @@
 language: ruby
 
+cache: bundler
+
 env:
   global:
   - CC_TEST_REPORTER_ID=01a016b0d0e67e8d10658893196d9a70dc7866b4b8e300e89609ba73e2cc6212
 
 rvm:
   - "2.0.0"
-  - "2.4.2"
   - "2.5.0"
-
-notifications:
-  email: false
 
 before_install:
 - gem install bundler
