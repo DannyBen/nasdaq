@@ -2,7 +2,7 @@ Quata - Quandl API Library and Command Line
 ==================================================
 
 [![Gem Version](https://badge.fury.io/rb/quata.svg)](https://badge.fury.io/rb/quata)
-[![Build Status](https://travis-ci.org/DannyBen/quata.svg?branch=master)](https://travis-ci.org/DannyBen/quata)
+[![Build Status](https://travis-ci.com/DannyBen/quata.svg?branch=master)](https://travis-ci.com/DannyBen/quata)
 [![Maintainability](https://api.codeclimate.com/v1/badges/463cd9899bf9357303ab/maintainability)](https://codeclimate.com/github/DannyBen/quata/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/463cd9899bf9357303ab/test_coverage)](https://codeclimate.com/github/DannyBen/quata/test_coverage)
 
