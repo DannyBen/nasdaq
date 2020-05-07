@@ -1,6 +1,6 @@
 require 'super_docopt'
 require 'json'
-require 'awesome_print'
+require 'lp'
 
 module Quata
 
@@ -43,7 +43,7 @@ module Quata
     end
 
     def see
-      ap quandl.get path, params
+      lp quandl.get path, params
     end
 
     def url

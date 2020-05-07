@@ -89,7 +89,7 @@ describe CommandLine do
       let(:command) { %w[see datasets/WIKI/AAPL rows:5] }
 
       it "awesome-prints output" do
-        expected = /"dataset_code".*=>.*"AAPL"/
+        expected = /dataset_code:.*AAPL/
         expect {cli.execute command}.to output(expected).to_stdout
       end
     end
