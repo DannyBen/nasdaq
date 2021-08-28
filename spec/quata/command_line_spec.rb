@@ -99,12 +99,12 @@ describe CommandLine do
       let(:filename) { 'tmp.json' }
 
       before do 
-        File.unlink filename if File.exist? filename
+        system "rm #{filename}" if File.exist? filename
         expect(File).not_to exist filename
       end
 
       after do 
-        File.unlink filename
+        system "rm #{filename}" if File.exist? filename
       end
 
       it "saves a file" do
@@ -121,12 +121,12 @@ describe CommandLine do
       let(:filename) { 'tmp.zip' }
 
       before do 
-        File.unlink filename if File.exist? filename
+        system "rm #{filename}" if File.exist? filename
         expect(File).not_to exist filename
       end
 
       after do
-        File.unlink filename
+        system "rm #{filename}" if File.exist? filename
       end
 
       it "saves a file", type: :premium do
@@ -143,12 +143,12 @@ describe CommandLine do
       let(:filename) { 'tmp.csv' }
 
       before do
-        File.unlink filename if File.exist? filename
+        system "rm #{filename}" if File.exist? filename
         expect(File).not_to exist filename
       end
 
       after do
-        File.unlink filename
+        system "rm #{filename}" if File.exist? filename
       end
 
       it "saves a csv file" do

@@ -47,15 +47,19 @@ describe "quandl queries" do
   end
 
   describe '#save' do
-    it "saves a file", type: :premium do
-      File.unlink 'tmp.zip' if File.exist? 'tmp.zip'
+    before do 
+      system "rm tmp.zip" if File.exist? 'tmp.zip'
       expect(File).not_to exist 'tmp.zip'
+    end
 
+    after do
+      system "rm tmp.zip" if File.exist? 'tmp.zip'
+    end
+
+    it "saves a file", type: :premium do
       quandl.save 'tmp.zip', "databases/#{premium}/data", download_type: 'partial'
       expect(File).to exist 'tmp.zip'
       expect(File.size 'tmp.zip').to be > 10000
-
-      File.unlink 'tmp.zip'
     end
   end
 
