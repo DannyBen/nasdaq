@@ -187,7 +187,7 @@ Quata uses the [Lightly][3] gem for automatic HTTP caching.
 To take the path of least surprises, caching is disabled by default.
 
 You can enable and customize it by either passing options on 
-initialization, or by accessing the `WebCache` object directly at 
+initialization, or by accessing the `Lightly` object directly at 
 a later stage.
 
 ```ruby
