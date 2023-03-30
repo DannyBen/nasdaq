@@ -2,7 +2,7 @@ require 'super_docopt'
 require 'json'
 require 'lp'
 
-module Quata
+module Nasdaq
   # Handles the command line interface
   class CommandLine < SuperDocopt::Base
     version VERSION
@@ -20,42 +20,42 @@ module Quata
 
     def get
       if csv
-        puts quandl.get_csv path, params
+        puts nasdaq.get_csv path, params
       else
-        payload = quandl.get! path, params
+        payload = nasdaq.get! path, params
         puts payload.response.body
       end
     end
 
     def save
       success = if csv
-        quandl.save_csv file, path, params
+        nasdaq.save_csv file, path, params
       else
-        quandl.save file, path, params
+        nasdaq.save file, path, params
       end
       puts success ? "Saved #{file}" : 'Saving failed'
     end
 
     def pretty
-      payload = quandl.get path, params
+      payload = nasdaq.get path, params
       puts JSON.pretty_generate payload
     end
 
     def see
-      lp quandl.get path, params
+      lp nasdaq.get path, params
     end
 
     def url
-      puts quandl.url path, params
+      puts nasdaq.url path, params
     end
 
-    def quandl
-      @quandl ||= quandl!
+    def nasdaq
+      @nasdaq ||= nasdaq!
     end
 
   private
 
-    def quandl!
+    def nasdaq!
       API.new api_key, options
     end
 
@@ -83,15 +83,15 @@ module Quata
     end
 
     def api_key
-      ENV['QUANDL_KEY']
+      ENV['NASDAQ_KEY']
     end
 
     def cache_dir
-      ENV['QUANDL_CACHE_DIR']
+      ENV['NASDAQ_CACHE_DIR']
     end
 
     def cache_life
-      ENV['QUANDL_CACHE_LIFE']
+      ENV['NASDAQ_CACHE_LIFE']
     end
   end
 end
