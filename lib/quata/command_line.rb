@@ -3,12 +3,11 @@ require 'json'
 require 'lp'
 
 module Quata
-
   # Handles the command line interface
   class CommandLine < SuperDocopt::Base
     version VERSION
     docopt File.expand_path 'docopt.txt', __dir__
-    subcommands ['get', 'pretty', 'see', 'url', 'save']
+    subcommands %w[get pretty see url save]
 
     attr_reader :path, :params, :file, :csv
 
@@ -29,12 +28,12 @@ module Quata
     end
 
     def save
-      if csv
-        success = quandl.save_csv file, path, params
+      success = if csv
+        quandl.save_csv file, path, params
       else
-        success = quandl.save file, path, params
+        quandl.save file, path, params
       end
-      puts success ? "Saved #{file}" : "Saving failed"
+      puts success ? "Saved #{file}" : 'Saving failed'
     end
 
     def pretty
@@ -54,7 +53,7 @@ module Quata
       @quandl ||= quandl!
     end
 
-    private
+  private
 
     def quandl!
       API.new api_key, options
@@ -65,6 +64,7 @@ module Quata
     def translate_params(pairs)
       result = {}
       return result if pairs.empty?
+
       pairs.each do |pair|
         key, value = pair.split ':'
         result[key.to_sym] = value
@@ -93,6 +93,5 @@ module Quata
     def cache_life
       ENV['QUANDL_CACHE_LIFE']
     end
-
   end
 end

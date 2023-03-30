@@ -1,20 +1,5 @@
-require "runfile-tasks"
-require_relative 'lib/quata'
-
 title   "Quata Developer Toolbelt"
 summary "Runfile tasks for building the Quata gem"
-version Quata::VERSION
 
-RunfileTasks::RubyGems.all 'quata'
-RunfileTasks::Testing.rspec
-RunfileTasks::Docs.rdoc
-
-help   "Run YARD server"
-action :yard do
-  system "yard server -p3000 -B0.0.0.0 -r"
-end
-
-help   "Run interactive console"
-action :console, :c do
-  system "bundle exec bin/console"
-end
+import_gem 'runfile-tasks/gem'
+import_gem 'runfile-tasks/yard'

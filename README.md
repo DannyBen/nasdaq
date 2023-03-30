@@ -1,5 +1,4 @@
-Quata - Quandl API Library and Command Line
-==================================================
+# Quata - Quandl API Library and Command Line
 
 [![Gem Version](https://badge.fury.io/rb/quata.svg)](https://badge.fury.io/rb/quata)
 [![Build Status](https://github.com/DannyBen/quata/workflows/Test/badge.svg)](https://github.com/DannyBen/quata/actions?query=workflow%3ATest)
@@ -10,12 +9,12 @@ Quata - Quandl API Library and Command Line
 Quata is a lightweight ruby library for accessing Quandl, and includes 
 a command line interface.
 
-It provides direct access to all of the [Quandl API][1] endpoints.
+It provides direct access to all of the [Nasdaq Data Link API][1]
+(formerly Quandl) endpoints.
 
 ---
 
-Install
---------------------------------------------------
+## Install
 
 ```
 $ gem install quata
@@ -28,25 +27,23 @@ gem 'quata'
 ```
 
 
-Features
---------------------------------------------------
+## Features
 
 * Easy to use interface.
 * Use as a library or through the command line.
 * Access any Quandl endpoint directly.
 * Display output in various formats.
-* Save output to a file, including bulk downloads.
+* Save output to a file.
 * Includes a built in file cache (disabled by default).
 
 
-Usage
---------------------------------------------------
+## Usage
 
 First, require and initialize with your API key
 
 ```ruby
 require 'quata'
-quandl = Quata::API.new 'Your API Key'
+quandl = Quata::API.new 'your-api-key'
 ```
 
 Now, you can access any Quandl endpoint with any optional parameter, like
@@ -130,21 +127,24 @@ quandl.save_csv "filename.csv", "datasets/WIKI/AAPL", rows: 3
 ```
 
 
-Command Line
---------------------------------------------------
+## Command Line
 
 The command line utility `quata` acts in a similar way. To use your Quandl
 API key, simply set it in the environment variables `QUANDL_KEY`:
 
-`$ export QUANDL_KEY=your_key`
+```
+$ export QUANDL_KEY=your_key
+```
 
 These commands are available:
 
-`$ quata get PATH [PARAMS...]` - print the output.  
-`$ quata pretty PATH [PARAMS...]` - print a pretty JSON.  
-`$ quata see PATH [PARAMS...]` - print a colored output.  
-`$ quata url PATH [PARAMS...]` - show the constructed URL.  
-`$ quata save FILE PATH [PARAMS...]` - save the output to a file.  
+```bash
+$ quata get PATH [PARAMS...]        # print the output.  
+$ quata pretty PATH [PARAMS...]     # print a pretty JSON.  
+$ quata see PATH [PARAMS...]        # print a colored output.  
+$ quata url PATH [PARAMS...]        # show the constructed URL.  
+$ quata save FILE PATH [PARAMS...]  # save the output to a file.  
+```
 
 Run `quata --help` for more information, or view the [full usage help][2].
 
@@ -177,11 +177,10 @@ $ quata save output.csv datasets/WIKI/AAPL rows:5
 
 # Shows the URL that Quata has constructed, good for debugging
 $ quata url datasets/WIKI/AAPL rows:5
-# => https://www.quandl.com/api/v3/datasets/WIKI/AAPL.csv?auth_token=YOUR_KEY&rows=5
+# => https://data.nasdaq.com/api/v3/datasets/WIKI/AAPL.csv?api_key=YOUR_KEY&rows=5
 ```
 
-Caching
---------------------------------------------------
+## Caching
 
 Quata uses the [Lightly][3] gem for automatic HTTP caching.
 To take the path of least surprises, caching is disabled by default.
@@ -214,12 +213,11 @@ $ quata get datasets/WIKI/AAPL
 ```
 
 
-Terminalcast
---------------------------------------------------
+## Terminalcast
 
 ![Quata Demo](https://raw.githubusercontent.com/DannyBen/quata/master/demo.gif "Quata Demo")
 
-[1]: https://www.quandl.com/blog/getting-started-with-the-quandl-api
+[1]: https://docs.data.nasdaq.com/docs/getting-started
 [2]: https://github.com/DannyBen/quata/blob/master/lib/quata/docopt.txt
 [3]: https://github.com/DannyBen/lightly
 
