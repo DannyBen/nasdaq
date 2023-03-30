@@ -1,5 +1,5 @@
-title   "Quata Developer Toolbelt"
-summary "Runfile tasks for building the Quata gem"
+title   "Nasdaq Developer Toolbelt"
+summary "Runfile tasks for building the nasdaq gem"
 
 import_gem 'runfile-tasks/gem'
 import_gem 'runfile-tasks/yard'

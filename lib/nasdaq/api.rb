@@ -1,7 +1,7 @@
 require 'apicake'
 
 module Nasdaq
-  # Provides access to all the Quandl API endpoints
+  # Provides access to all the API endpoints
   class API < APICake::Base
     base_uri 'https://data.nasdaq.com/api/v3'
 
@@ -22,7 +22,7 @@ module Nasdaq
     end
 
     # Returns a hash that will be merged into all query strings before
-    # sending the request to Quandl. This method is used by API Cake.
+    # sending the request. This method is used by API Cake.
     def default_query
       { api_key: api_key }
     end
