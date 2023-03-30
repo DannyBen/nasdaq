@@ -5,5 +5,5 @@ require 'quata'
 begin
   Quata::CommandLine.execute ARGV
 rescue Quata::BadResponse => e
-  STDERR.puts "#{e.class} - #{e.message}"
+  warn "#{e.class} - #{e.message}"
 end
