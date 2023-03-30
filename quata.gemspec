@@ -17,6 +17,9 @@ Gem::Specification.new do |s|
 
   s.add_runtime_dependency 'apicake', '~> 0.1'
   s.add_runtime_dependency 'lp', '~> 0.2'
-  s.add_runtime_dependency 'super_docopt', '~> 0.1'
+  s.add_runtime_dependency 'super_docopt', '~> 0.2'
+
   s.metadata['rubygems_mfa_required'] = 'true'
+
+  s.post_install_message = "WARNING: The 'quata' gem was renamed to 'nasdaq', please install it instead."
 end
