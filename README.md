@@ -2,6 +2,7 @@
 
 [![Gem Version](https://badge.fury.io/rb/nasdaq.svg)](https://badge.fury.io/rb/nasdaq)
 [![Build Status](https://github.com/DannyBen/nasdaq/workflows/Test/badge.svg)](https://github.com/DannyBen/nasdaq/actions?query=workflow%3ATest)
+[![Maintainability](https://api.codeclimate.com/v1/badges/1d68eed3be3481f48066/maintainability)](https://codeclimate.com/github/DannyBen/nasdaq/maintainability)
 
 ---
 
