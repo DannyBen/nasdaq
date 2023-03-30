@@ -1,9 +1,0 @@
-#!/usr/bin/env ruby
-
-require 'quata'
-
-begin
-  Quata::CommandLine.execute ARGV
-rescue Quata::BadResponse => e
-  warn "#{e.class} - #{e.message}"
-end

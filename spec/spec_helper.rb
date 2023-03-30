@@ -5,11 +5,11 @@ require 'rubygems'
 require 'bundler'
 Bundler.require :default, :development
 
-include Quata
+include Nasdaq
 
 RSpec.configure do |config|
   config.example_status_persistence_file_path = 'spec/status.txt'
-  config.filter_run_excluding :premium unless ENV['QUANDL_PREMIUM']
+  config.filter_run_excluding :premium unless ENV['NASDAQ_PREMIUM']
   config.before :suite do
     puts 'Running spec_helper > before :suite'
     puts 'Flushing cache'

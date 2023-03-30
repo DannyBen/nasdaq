@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+require 'nasdaq'
+
+begin
+  Nasdaq::CommandLine.execute ARGV
+rescue Nasdaq::BadResponse => e
+  warn "#{e.class} - #{e.message}"
+end

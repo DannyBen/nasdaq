@@ -1,0 +1,68 @@
+Nasdaq Data Link
+
+Usage:
+  nasdaq get [--csv] PATH [PARAMS...]
+  nasdaq pretty PATH [PARAMS...]
+  nasdaq see PATH [PARAMS...]
+  nasdaq url PATH [PARAMS...]
+  nasdaq save [--csv] FILE PATH [PARAMS...]
+  nasdaq (-h|--help|--version)
+
+Commands:
+  get
+    Downloads data and prints it to screen as it. 
+  
+  pretty
+    Downloads data and prints it as a prettified JSON output.
+
+  see
+    Downloads data and prints it with a colored output.
+
+  url
+    Shows the URL constructed from the request.
+
+  save
+    Downloads data and saves it to a file.
+
+Parameters:
+  PATH:
+    This is the Nasdaq Data Link API path without the query string.
+    For example: datasets/WIKI/AAPL.
+
+  PARAMS:
+    An optional list of query string parameters, separated by a space, to 
+    send with the request. Each parameter should be in the format of 
+    key:value, for example: page:2 per_page:10
+
+  FILE:
+    Path to the output file.
+
+Flags:
+  --csv
+    When this flag is provided, the data will be converted to CSV before
+    it is displayed or saved. Note that this works only with endpoints that
+    have a 'data' attribute.
+
+Environment Variables:
+  NASDAQ_KEY=y0urAP1k3y
+    Set Your Nasdaq Data Link API key. This variable is optional.
+
+  NASDAQ_CACHE_LIFE=360
+    Set the number of seconds to consider the cache fresh. This variable
+    it optional.
+
+  NASDAQ_CACHE_DIR=./cache
+    Set the cache directory. This variable is optional.
+    If both NASDAQ_CACHE_DIR and NASDAQ_CACHE_LIFE are not set, requests
+    will not be cached.
+
+Examples:
+  nasdaq get databases per_page:2
+  nasdaq get datasets/WIKI/AAPL
+  nasdaq get --csv datasets/WIKI/AAPL rows:5
+  nasdaq get datasets source_code:WIKI query:* 
+  nasdaq get datasets query:oil
+  nasdaq url datasets/WIKI/AAPL rows:5
+  nasdaq save --csv output.csv datasets/WIKI/AAPL rows:5
+  nasdaq save output.json datasets/WIKI/AAPL rows:5
+  nasdaq pretty datasets "query:qqq index" per_page:2

@@ -1,40 +1,40 @@
 describe CommandLine do
-  let(:cli) { Quata::CommandLine }
+  let(:cli) { Nasdaq::CommandLine }
 
   before do
-    ENV['QUANDL_CACHE_DIR'] = 'cache'
-    ENV['QUANDL_CACHE_LIFE'] = '86400'
+    ENV['NASDAQ_CACHE_DIR'] = 'cache'
+    ENV['NASDAQ_CACHE_LIFE'] = '86400'
   end
 
   describe '#initialize' do
-    let(:cli) { Quata::CommandLine.clone.instance }
+    let(:cli) { Nasdaq::CommandLine.clone.instance }
 
     context 'without environment variables' do
       before do
-        ENV['QUANDL_CACHE_DIR'] = nil
-        ENV['QUANDL_CACHE_LIFE'] = nil
+        ENV['NASDAQ_CACHE_DIR'] = nil
+        ENV['NASDAQ_CACHE_LIFE'] = nil
       end
 
       it 'has cache disabled' do
-        expect(cli.quandl.cache).not_to be_enabled
+        expect(cli.nasdaq.cache).not_to be_enabled
       end
     end
 
     context 'with CACHE_DIR' do
       it 'enables cache' do
-        ENV['QUANDL_CACHE_DIR'] = 'hello'
-        expect(cli.quandl.cache).to be_enabled
-        expect(cli.quandl.cache.dir).to eq 'hello'
-        ENV.delete 'QUANDL_CACHE_DIR'
+        ENV['NASDAQ_CACHE_DIR'] = 'hello'
+        expect(cli.nasdaq.cache).to be_enabled
+        expect(cli.nasdaq.cache.dir).to eq 'hello'
+        ENV.delete 'NASDAQ_CACHE_DIR'
       end
     end
 
     context 'with CACHE_LIFE' do
       it 'enables cache' do
-        ENV['QUANDL_CACHE_LIFE'] = '123'
-        expect(cli.quandl.cache).to be_enabled
-        expect(cli.quandl.cache.life).to eq 123
-        ENV.delete 'QUANDL_CACHE_LIFE'
+        ENV['NASDAQ_CACHE_LIFE'] = '123'
+        expect(cli.nasdaq.cache).to be_enabled
+        expect(cli.nasdaq.cache.life).to eq 123
+        ENV.delete 'NASDAQ_CACHE_LIFE'
       end
     end
   end

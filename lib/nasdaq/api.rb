@@ -1,6 +1,6 @@
 require 'apicake'
 
-module Quata
+module Nasdaq
   # Provides access to all the Quandl API endpoints
   class API < APICake::Base
     base_uri 'https://data.nasdaq.com/api/v3'
@@ -35,7 +35,7 @@ module Quata
       payload = get! path, params
 
       if payload.response.code != '200'
-        raise Quata::BadResponse, "#{payload.response.code} #{payload.response.msg}"
+        raise Nasdaq::BadResponse, "#{payload.response.code} #{payload.response.msg}"
       end
 
       payload.response.body

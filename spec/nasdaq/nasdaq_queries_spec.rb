@@ -1,8 +1,8 @@
-describe 'quandl queries' do
-  let(:quandl) { API.new ENV['QUANDL_KEY'] }
+describe 'nasdaq queries' do
+  let(:nasdaq) { API.new ENV['NASDAQ_KEY'] }
 
   describe '#datasets' do
-    let(:response) { quandl.datasets 'WIKI/AAPL', rows: 3 }
+    let(:response) { nasdaq.datasets 'WIKI/AAPL', rows: 3 }
 
     it 'returns a hash' do
       expect(response).to have_key 'dataset'
@@ -16,26 +16,26 @@ describe 'quandl queries' do
 
   describe '#databases' do
     it 'returns a hash' do
-      response = quandl.databases per_page: 2
+      response = nasdaq.databases per_page: 2
       expect(response['databases'].length).to eq 2
     end
   end
 
   describe '#get' do
     it 'returns hash' do
-      response = quandl.get 'datasets/WIKI/AAPL', rows: 3
+      response = nasdaq.get 'datasets/WIKI/AAPL', rows: 3
       expect(response).to have_key 'dataset'
     end
 
     it 'returns a csv array' do
-      response = quandl.get 'datasets/WIKI/AAPL.csv', rows: 3
+      response = nasdaq.get 'datasets/WIKI/AAPL.csv', rows: 3
       expected = %w[Date Open High Low]
       expect(response).to be_an Array
       expect(expected - response.first).to be_empty
     end
 
     it 'fails with honor' do
-      response = quandl.get 'no_can_do'
+      response = nasdaq.get 'no_can_do'
       expect(response).to match(/Error.*We could not recognize the URL you requested/)
     end
   end
@@ -51,7 +51,7 @@ describe 'quandl queries' do
     end
 
     it 'saves a file' do
-      quandl.save 'tmp.json', 'datasets/WIKI/AAPL', rows: 5
+      nasdaq.save 'tmp.json', 'datasets/WIKI/AAPL', rows: 5
       expect(File).to exist 'tmp.json'
       data = JSON.parse(File.read('tmp.json'))
       expect(data['dataset']['data'].count).to eq 5
