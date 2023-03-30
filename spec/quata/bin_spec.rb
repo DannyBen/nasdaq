@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe 'bin/quata' do
   it 'shows usage patterns' do
     expect(`bin/quata`).to match(/Usage:/)

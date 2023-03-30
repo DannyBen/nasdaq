@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe API do
   before :all do
     ENV['QUANDL_KEY'] or raise 'Please set QUANDL_KEY=y0urAP1k3y before running tests'

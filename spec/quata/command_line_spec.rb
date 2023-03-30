@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe CommandLine do
   let(:cli) { Quata::CommandLine }
 

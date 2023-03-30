@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe 'quandl queries' do
   let(:quandl) { API.new ENV['QUANDL_KEY'] }
 
