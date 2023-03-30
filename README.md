@@ -215,7 +215,7 @@ $ nasdaq get datasets/WIKI/AAPL
 
 ## Command Line Demo
 
-![Demo](https://raw.githubusercontent.com/DannyBen/nasdaq/master/suppoer/demo/cast.gif "Demo")
+![Demo](https://raw.githubusercontent.com/DannyBen/nasdaq/master/support/demo/cast.gif "Demo")
 
 [1]: https://docs.data.nasdaq.com/docs/getting-started
 [2]: https://github.com/DannyBen/nasdaq/blob/master/lib/nasdaq/docopt.txt
