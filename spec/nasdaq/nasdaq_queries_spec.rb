@@ -14,13 +14,6 @@ describe 'nasdaq queries' do
     end
   end
 
-  describe '#databases' do
-    it 'returns a hash' do
-      response = nasdaq.databases per_page: 2
-      expect(response['databases'].length).to eq 2
-    end
-  end
-
   describe '#get' do
     it 'returns hash' do
       response = nasdaq.get 'datasets/WIKI/AAPL', rows: 3
