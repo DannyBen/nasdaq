@@ -81,28 +81,28 @@ control over the response, use the `get!` method instead:
 result = nasdaq.get! "datasets/WIKI/AAPL", rows: 3
 
 # Request Object
-p payload.request.class
+p result.request.class
 # => HTTParty::Request
 
 # Response Object
-p payload.response.class
+p result.response.class
 # => Net::HTTPOK
 
-p payload.response.body
+p result.response.body
 # => JSON string
 
-p payload.response.code
+p result.response.code
 # => 200
 
-p payload.response.msg
+p result.response.msg
 # => OK
 
 # Headers Object
-p payload.headers
+p result.headers
 # => Hash with headers
 
 # Parsed Response Object
-p payload.parsed_response
+p result.parsed_response
 # => Hash with HTTParty parsed response 
 #    (this is the content returned with #get)
 ```
