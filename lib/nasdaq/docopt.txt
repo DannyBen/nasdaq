@@ -27,7 +27,7 @@ Commands:
 Parameters:
   PATH:
     This is the Nasdaq Data Link API path without the query string.
-    For example: datasets/WIKI/AAPL.
+    For example: datatables/WIKI/PRICES.
 
   PARAMS:
     An optional list of query string parameters, separated by a space, to 
@@ -57,12 +57,10 @@ Environment Variables:
     will not be cached.
 
 Examples:
-  nasdaq get databases per_page:2
-  nasdaq get datasets/WIKI/AAPL
-  nasdaq get --csv datasets/WIKI/AAPL rows:5
-  nasdaq get datasets source_code:WIKI query:* 
-  nasdaq get datasets query:oil
-  nasdaq url datasets/WIKI/AAPL rows:5
-  nasdaq save --csv output.csv datasets/WIKI/AAPL rows:5
-  nasdaq save output.json datasets/WIKI/AAPL rows:5
-  nasdaq pretty datasets "query:qqq index" per_page:2
+  nasdaq get datatables/WIKI/PRICES ticker:NVDA
+  nasdaq get datatables/WIKI/PRICES
+  nasdaq get --csv datatables/WIKI/PRICES ticker:NVDA
+  nasdaq url datatables/WIKI/PRICES ticker:NVDA
+  nasdaq save --csv output.csv datatables/WIKI/PRICES ticker:NVDA
+  nasdaq save output.json datatables/WIKI/PRICES ticker:NVDA
+  nasdaq pretty datatables/WIKI/PRICES ticker:NVDA

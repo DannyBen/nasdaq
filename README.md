@@ -1,11 +1,5 @@
 # Nasdaq Data Link API and Command Line
 
-[![Gem Version](https://badge.fury.io/rb/nasdaq.svg)](https://badge.fury.io/rb/nasdaq)
-[![Build Status](https://github.com/DannyBen/nasdaq/workflows/Test/badge.svg)](https://github.com/DannyBen/nasdaq/actions?query=workflow%3ATest)
-[![Maintainability](https://api.codeclimate.com/v1/badges/1d68eed3be3481f48066/maintainability)](https://codeclimate.com/github/DannyBen/nasdaq/maintainability)
-
----
-
 Lightweight ruby library and command line interface for accessing the 
 [Nasdaq Data Link API][1] (formerly Quandl) with direct access to all of its
 endpoints.
@@ -50,14 +44,14 @@ Now, you can access any API endpoint with any optional parameter, like
 this:
 
 ```ruby
-result = nasdaq.get "datasets/WIKI/AAPL", rows: 3 # => Hash
+result = nasdaq.get 'datatables/WIKI/PRICES', ticker: 'NVDA' # => Hash
 ```
 
 In addition, for convenience, you can use the first part of the endpoint as
 a method name, like this:
 
 ```ruby
-result = nasdaq.datasets "WIKI/AAPL", rows: 3
+result = nasdaq.datatables 'WIKI/PRICES', ticker: 'NCDA'
 ```
 
 In other words, these calls are the same:
@@ -78,7 +72,7 @@ By default, you will get a ruby hash in return. If you wish to have more
 control over the response, use the `get!` method instead:
 
 ```ruby
-result = nasdaq.get! "datasets/WIKI/AAPL", rows: 3
+result = nasdaq.get! 'datatables/WIKI/PRICES', ticker: 'NVDA'
 
 # Request Object
 p result.request.class
@@ -110,20 +104,20 @@ p result.parsed_response
 You can get the response as CSV by calling `get_csv`:
 
 ```ruby
-result = nasdaq.get_csv "datasets/WIKI/AAPL", rows: 3
+result = nasdaq.get_csv 'datatables/WIKI/PRICES', ticker: 'NVDA'
 # => CSV string
 ```
 
 To save the output directly to a file, use the `save` method:
 
 ```ruby
-nasdaq.save "filename.json", "datasets/WIKI/AAPL", rows: 3
+nasdaq.save 'filename.json', 'datatables/WIKI/PRICES', ticker: 'NVDA'
 ```
 
 Or, to save CSV, use the `save_csv` method:
 
 ```ruby
-nasdaq.save_csv "filename.csv", "datasets/WIKI/AAPL", rows: 3
+nasdaq.save_csv 'filename.csv', 'datatables/WIKI/PRICES', ticker: 'NVDA'
 ```
 
 
@@ -147,38 +141,6 @@ $ nasdaq save FILE PATH [PARAMS...]  # save the output to a file.
 ```
 
 Run `nasdaq --help` for more information, or view the [full usage help][2].
-
-Examples:
-
-```bash
-# Shows the first two databases 
-$ nasdaq see databases per_page:2
-
-# Or more compactly, as CSV
-$ nasdaq get databases per_page:2
-
-# Prints CSV to screen (CSV is the default in the command line)
-$ nasdaq get datasets/WIKI/AAPL
-
-# Prints JSON instead
-$ nasdaq get datasets/WIKI/AAPL.json
-
-# Pass arguments using the same syntax - key:value
-$ nasdaq get datasets/WIKI/AAPL rows:5
-
-# Pass arguments that require spaces
-$ nasdaq get datasets.json "query:qqq index"
-
-# Prints a colored output
-$ nasdaq see datasets/WIKI/AAPL rows:5
-
-# Saves a file
-$ nasdaq save output.csv datasets/WIKI/AAPL rows:5
-
-# Shows the underlying URL for the request, good for debugging
-$ nasdaq url datasets/WIKI/AAPL rows:5
-# => https://data.nasdaq.com/api/v3/datasets/WIKI/AAPL.csv?api_key=YOUR_KEY&rows=5
-```
 
 ## Caching
 
@@ -208,16 +170,7 @@ these environment variables:
 ```bash
 $ export NASDAQ_CACHE_DIR=cache   # default: 'cache'
 $ export NASDAQ_CACHE_LIFE=120    # default: 3600 (1 hour)
-$ nasdaq get datasets/WIKI/AAPL
+$ nasdaq get datatables/WIKI/PRICES ticker:NVDA
 # => This call will be cached
 ```
-
-
-## Command Line Demo
-
-![Demo](https://raw.githubusercontent.com/DannyBen/nasdaq/master/support/demo/cast.gif "Demo")
-
-[1]: https://docs.data.nasdaq.com/docs/getting-started
-[2]: https://github.com/DannyBen/nasdaq/blob/master/lib/nasdaq/docopt.txt
-[3]: https://github.com/DannyBen/lightly
 
