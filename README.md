@@ -1,5 +1,7 @@
 # Nasdaq Data Link API and Command Line
 
+![repocard](https://repocard.dannyben.com/svg/nasdaq.svg)
+
 Lightweight ruby library and command line interface for accessing the 
 [Nasdaq Data Link API][1] (formerly Quandl) with direct access to all of its
 endpoints.
